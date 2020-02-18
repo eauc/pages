@@ -48,18 +48,14 @@ body {
     box-shadow: 0 2px 5px 0px rgba(102, 102, 102, 0.5);
     /* style */
     font-weight: bold;
-    font-size: 1.5em;
     /* row container layout */
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
 }
-.header * {
-    margin: 0 0.5em;
-}
 
-.back {
+.header button {
     /* box */
     width: 2em;
     height: 2em;
@@ -69,13 +65,61 @@ body {
     /* style */
     background: transparent;
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 1.2em;
 }
-.back:active {
+.header button:active {
     background-color: #CCC;
 }
-.back:focus {
+.header button:focus {
     outline: none;
+}
+
+.title {
+    flex-grow: 1;
+    font-size: 1.5em;
+}
+
+.actions,
+.menu {
+    /* position */
+    position: fixed;
+    top: 2em;
+    /* box */
+    box-shadow: -2px 2px 5px 0px rgba(102, 102, 102, 0.5);
+    /* style */
+    font-size: 1.5em;
+    line-height: 2em;
+    background-color: white;
+    list-style-type: none;
+    /* animation */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+.actions.open,
+.menu.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.actions li,
+.menu li {
+    padding: 0 0.5em;
+}
+.actions li:active,
+.menu li:active {
+    background-color: #CCC;
+}
+.actions {
+    /* position */
+    right: 0;
+    /* box */
+    box-shadow: -2px 2px 5px 0px rgba(102, 102, 102, 0.5);
+}
+.menu {
+    /* position */
+    left: 0;
+    /* box */
+    box-shadow: 2px 2px 5px 0px rgba(102, 102, 102, 0.5);
 }
 
 .footer {

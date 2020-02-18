@@ -106,19 +106,37 @@
 
 (defn activity
   [page deleted?]
-  (println "render-activity" page deleted?)
-  [:div.activity
-   {:class (if deleted? "deleted")}
-   [:div.header
-    [:button.back
-     {:on-click back-page!}
-     "<"]
-    (str "Page " page)]
-   [:div.page (repeat 200 "Content ")]
-   [:div.footer
-    [:button.action
-     {:on-click #(nav! (str "/page/" (inc page)))}
-     ">"]]])
+  (let [opened? (reagent/atom nil)]
+    (fn [page deleted?]
+      ;; (println "render-activity" page deleted? @actions-opened?)
+      [:div.activity
+       {:class (if deleted? "deleted")
+        :on-click #(reset! opened? nil)}
+       [:div.header
+        [:button.back
+         {:on-click #(do (reset! opened? :menu)
+                         (.stopPropagation %))}
+         "M"]
+        [:ul.menu
+         {:class (if (= :menu @opened?) "open")}
+         (doall
+           (for [i (range page)]
+             ^{:key i} [:li (str "Menu " i)]))]
+        [:div.title (str "Page " page)]
+        [:button.actions-toggle
+         {:on-click #(do (reset! opened? :actions)
+                         (.stopPropagation %))}
+         "A"]
+        [:ul.actions
+         {:class (if (= :actions @opened?) "open")}
+         (doall
+           (for [i (range page)]
+             ^{:key i} [:li (str "Action " i)]))]]
+       [:div.page (repeat 200 "Content ")]
+       [:div.footer
+        [:button.action
+         {:on-click #(nav! (str "/page/" (inc page)))}
+         ">"]]])))
 
 (defn greet
   []
