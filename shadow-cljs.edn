@@ -8,8 +8,14 @@
  [[reagent "0.9.1"]
   [re-frame "0.11.0"]]
 
+ :http
+ {:port 9630}
+
  :dev-http
  {8000 "public"}
+
+ :nrepl
+ {:port 44666}
 
  :builds
  {:app {:target :browser
