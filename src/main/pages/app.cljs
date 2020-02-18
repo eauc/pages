@@ -107,8 +107,8 @@
 (defn activity
   [page deleted?]
   (println "render-activity" page deleted?)
-  [:div
-   {:class (str "activity " (if deleted? "deleted "))}
+  [:div.activity
+   {:class (if deleted? "deleted")}
    [:div.header
     [:button.back
      {:on-click back-page!}

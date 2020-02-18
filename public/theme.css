@@ -5,6 +5,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    overflow: hidden;
+}
+
 .activity {
     /* position */
     position: absolute;
@@ -15,12 +19,10 @@
     height: 100vh;
     /* grid container layout */
     display: grid;
-    grid-template-rows: 2.5em 1fr 0;
+    grid-template-rows: 3em 1fr;
     grid-template-areas:
         "header"
-        "page"
-        "footer";
-    grid-row-gap: 0;
+        "page";
     align-items: stretch;
     /* style */
     background: white;
@@ -32,6 +34,10 @@
 .activity.deleted {
     top: 100vh;
 }
+.activity.deleted .footer {
+    display: none;
+}
+
 
 .header {
     /* grid item layout */
@@ -42,6 +48,7 @@
     box-shadow: 0 2px 5px 0px rgba(102, 102, 102, 0.5);
     /* style */
     font-weight: bold;
+    font-size: 1.5em;
     /* row container layout */
     display: flex;
     flex-direction: row;
@@ -62,6 +69,7 @@
     /* style */
     background: transparent;
     font-weight: bold;
+    font-size: 0.8em;
 }
 .back:active {
     background-color: #CCC;
@@ -71,15 +79,18 @@
 }
 
 .footer {
-    /* grid item layout */
-    grid-area: footer;
-    align-self: center;
-    justify-self: end;
     /* position */
-    z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     /* box */
     height: 0;
     padding: 0 0.5em;
+    /* row container layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .action {
