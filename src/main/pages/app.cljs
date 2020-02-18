@@ -1,7 +1,8 @@
 (ns pages.app
-  (:require [reagent.core :as reagent]
-            [re-frame.core :as rf]
-            [goog.events])
+  (:require [clojure.edn :as edn]
+            [goog.events]
+            [reagent.core :as reagent]
+            [re-frame.core :as rf])
   (:import [goog.history Html5History EventType]))
 
 (enable-console-print!)
@@ -10,8 +11,29 @@
 
 (js/console.log "Coucouc JS")
 
+(def save-state
+  (re-frame.core/->interceptor
+    :id      ::save-state
+    :after  (fn [{{:keys [db]} :effects :as context}]
+              (.setItem js/localStorage "app-state" (pr-str db))
+              context)))
+
+(rf/reg-event-db
+  ::init
+  (fn [db [_ state]]
+    state))
+
+(def load-state
+  (rf/dispatch
+    [::init
+     (edn/read-string
+       (or
+         (.getItem js/localStorage "app-state")
+         "{}"))]))
+
 (rf/reg-event-db
   ::set-page
+  [save-state]
   (fn [db [_ page]]
     (assoc db ::page page)))
 
