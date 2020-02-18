@@ -26,21 +26,38 @@
 (def load-state
   (rf/dispatch
     [::init
-     (edn/read-string
-       (or
-         (.getItem js/localStorage "app-state")
-         "{}"))]))
+     (merge
+       {::pages [0]
+        ::current-page 0}
+       (edn/read-string
+         (.getItem js/localStorage "app-state")))]))
 
 (rf/reg-event-db
   ::set-page
   [save-state]
   (fn [db [_ page]]
-    (assoc db ::page page)))
+    (let [{pages ::pages current-page ::current-page} db]
+      (if (= page (nth pages current-page))
+        db
+        (if (and (< 0 current-page)
+                 (= page (nth pages (dec current-page))))
+          (update db ::current-page dec)
+          (if (and (< current-page (dec (count pages)))
+                   (= page (nth pages (inc current-page))))
+            (update db ::current-page inc)
+            (assoc db
+                   ::pages (conj (subvec pages 0 (inc current-page)) page)
+                   ::current-page (inc current-page))))))))
 
 (rf/reg-sub
-  ::page
+  ::pages
   (fn [db _]
-    (::page db 0)))
+    (::pages db)))
+
+(rf/reg-sub
+  ::current-page
+  (fn [db _]
+    (::current-page db)))
 
 (defn get-token []
   (str js/window.location.pathname js/window.location.search))
@@ -87,19 +104,35 @@
   [page]
   (set! (.-location js/document) ))
 
-(defn greet
-  []
-  [:div.activity
+(defn activity
+  [page deleted?]
+  (println "render-activity" page deleted?)
+  [:div
+   {:class (str "activity " (if deleted? "deleted "))}
    [:div.header
     [:button.back
      {:on-click back-page!}
      "<"]
-    (str "Page " @(rf/subscribe [::page]))]
+    (str "Page " page)]
    [:div.page (repeat 200 "Content ")]
    [:div.footer
     [:button.action
-     {:on-click #(nav! (str "/page/" (inc @(rf/subscribe [::page]))))}
+     {:on-click #(nav! (str "/page/" (inc page)))}
      ">"]]])
+
+(defn greet
+  []
+  (let [pages (rf/subscribe [::pages])
+        current-page (rf/subscribe [::current-page])]
+    (fn []
+      ;; (println "render-list" @pages @current-page)
+      [:<>
+       (doall
+         (for [[n page] (take 3
+                              (drop (max 0 (- @current-page 1))
+                                    (map-indexed vector @pages)))]
+           ^{:key page}
+           [activity page (> n @current-page)]))])))
 
 (reagent/render
   [greet]

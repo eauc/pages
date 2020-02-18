@@ -6,10 +6,14 @@
 }
 
 .activity {
+    /* position */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* box */
     width: 100vw;
     height: 100vh;
-    /* background: blue; */
-    /* color: white; */
+    /* grid container layout */
     display: grid;
     grid-template-rows: 2.5em 1fr 0;
     grid-template-areas:
@@ -18,33 +22,46 @@
         "footer";
     grid-row-gap: 0;
     align-items: stretch;
+    /* style */
+    background: white;
+    /* animations */
+    animation: slide-up 0.4s ease;
+    transition: top 0.4s ease;
+}
+
+.activity.deleted {
+    top: 100vh;
 }
 
 .header {
+    /* grid item layout */
     grid-area: header;
     align-self: stretch;
     justify-self: stretch;
-    /* background: #00CCCC; */
-    /* color: black; */
+    /* box */
+    box-shadow: 0 2px 5px 0px rgba(102, 102, 102, 0.5);
+    /* style */
     font-weight: bold;
+    /* row container layout */
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    box-shadow: 0 2px 5px 0px rgba(102, 102, 102, 0.5);
 }
 .header * {
     margin: 0 0.5em;
 }
 
 .back {
-    background: transparent;
-    font-weight: bold;
-    padding: 0.5em;
+    /* box */
     width: 2em;
     height: 2em;
+    padding: 0.5em;
     border-radius: 1em;
     margin-right: 0.2em;
+    /* style */
+    background: transparent;
+    font-weight: bold;
 }
 .back:active {
     background-color: #CCC;
@@ -54,27 +71,31 @@
 }
 
 .footer {
+    /* grid item layout */
     grid-area: footer;
     align-self: center;
     justify-self: end;
-    /* background: #CC00CC; */
+    /* position */
+    z-index: 1000;
+    /* box */
     height: 0;
     padding: 0 0.5em;
-    z-index: 1000;
 }
 
 .action {
+    /* box */
+    width: 2em;
+    height: 2em;
+    padding: 0.5em;
+    border-radius: 1em;
+    margin-top: -2.5em;
+    box-shadow: 2px 2px 5px 0px rgba(102, 102, 102, 0.5);
+    /* style */
     background: #00CC33;
     color: white;
     font-weight: bold;
-    padding: 0.5em;
-    width: 2em;
-    height: 2em;
-    border-radius: 1em;
     font-size: 1.5em;
     line-height: 1em;
-    margin-top: -2.5em;
-    box-shadow: 2px 2px 5px 0px rgba(102, 102, 102, 0.5);
 }
 .action:active {
     background-color: #00AAAA;
@@ -84,12 +105,22 @@
 }
 
 .page {
+    /* grid item layout */
     grid-area: page;
     align-self: stretch;
     justify-self: stretch;
-    /* background: #CCCC00; */
-    /* color: black; */
-    flex-grow: 1;
+    /* box */
+    padding: 0.5em 0.5em;
     overflow-y: auto;
-    padding: 0.5em 0.5em
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
