@@ -5,7 +5,8 @@
   "src/test"]
 
  :dependencies
- [[reagent "0.9.1"]
+ [[cljs-styled-components "0.1.9"]
+  [reagent "0.9.1"]
   [re-frame "0.11.0"]]
 
  :http

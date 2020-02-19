@@ -1,5 +1,6 @@
 (ns pages.app
-  (:require [pages.components.activity :refer [activity]]
+  (:require [cljs-styled-components.reagent :refer [defglobalstyle]]
+            [pages.components.activity :refer [activity]]
             [pages.db]
             [reagent.core :as reagent]
             [re-frame.core :as rf]))
@@ -10,6 +11,14 @@
 
 (js/console.log "Coucouc JS")
 
+(defglobalstyle
+  global-styles
+  {"*" {:margin 0
+        :padding 0
+        :border 0
+        :font-family "'Roboto', sans-serif"}
+   :body {:overflow "hidden"}})
+
 (defn app
   []
   (let [pages (rf/subscribe [:pages.db/pages])
@@ -17,6 +26,7 @@
     (fn []
       ;; (println "render-list" @pages @current-page)
       [:<>
+       [global-styles]
        (doall
          (for [[n page] (take 3
                               (drop (max 0 (- @current-page 1))
@@ -27,8 +37,7 @@
 (defn ^:dev/after-load mount-app!
   []
   (println "mount-app!")
+  (rf/clear-subscription-cache!)
   (reagent/render
     [app]
     (js/document.getElementById "app")))
-
-(mount-app!)
