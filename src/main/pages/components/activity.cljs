@@ -9,7 +9,7 @@
   (let [opened? (reagent/atom nil)
         on-open #(reset! opened? %)]
     (fn [page deleted?]
-      (println "render-activity" page deleted? @opened?)
+      ;; (println "render-activity" page deleted? @opened?)
       [:div.activity
        {:class (if deleted? "deleted")
         :on-click #(reset! opened? nil)}

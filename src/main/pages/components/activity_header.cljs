@@ -4,7 +4,7 @@
 
 (defn activity-header
   [page opened? on-open]
-  (println "render-header" page opened?)
+  ;; (println "render-header" page opened?)
   [:div.header
    [:button.back
     {:on-click #(do (on-open :menu)

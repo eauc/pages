@@ -15,7 +15,7 @@
   (let [pages (rf/subscribe [:pages.db/pages])
         current-page (rf/subscribe [:pages.db/current-page])]
     (fn []
-      (println "render-list" @pages @current-page)
+      ;; (println "render-list" @pages @current-page)
       [:<>
        (doall
          (for [[n page] (take 3
@@ -24,6 +24,11 @@
            ^{:key page}
            [activity page (> n @current-page)]))])))
 
-(reagent/render
-  [app]
-  (js/document.getElementById "app"))
+(defn ^:dev/after-load mount-app!
+  []
+  (println "mount-app!")
+  (reagent/render
+    [app]
+    (js/document.getElementById "app")))
+
+(mount-app!)
