@@ -3,7 +3,7 @@
             [reagent.core :as reagent]))
 
 (defstyled menu-toggle :button
-  {;; box
+  { ;; box
    :width "2em"
    :height "2em"
    :padding "0.5em"
@@ -13,8 +13,10 @@
    :background "transparent"
    :font-weight "bold"
    :font-size "1.2em"
+   :transition "all 0.4s ease"
    :&:active {:background-color "#CCC"}
-   :&:focus {:outline "none"}})
+   :&:focus {:outline "none"}
+   :opened? {:transform "rotate(90deg)"}})
 
 (defstyled menu :ul
   { ;; position
@@ -45,7 +47,8 @@
   ;; (println "render-header" page opened?)
   [:<>
    [menu-toggle
-    {:on-click #(do (on-open)
+    {:opened? opened?
+     :on-click #(do (on-open)
                     (.stopPropagation %))}
     icon]
    [menu
