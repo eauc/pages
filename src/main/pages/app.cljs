@@ -1,5 +1,6 @@
 (ns pages.app
   (:require [pages.components.activity :refer [activity]]
+            [pages.components.css :as css]
             [pages.db]
             [reagent.core :as reagent]
             [re-frame.core :as rf]))
@@ -7,8 +8,6 @@
 (enable-console-print!)
 
 (println "Coucouc CLJS")
-
-(js/console.log "Coucouc JS")
 
 (defn app
   []
@@ -27,6 +26,8 @@
 (defn ^:dev/after-load mount-app!
   []
   (println "mount-app!")
+  (css/setup-styles!)
+  (rf/clear-subscription-cache!)
   (reagent/render
     [app]
     (js/document.getElementById "app")))
