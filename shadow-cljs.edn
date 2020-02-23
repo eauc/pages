@@ -7,7 +7,8 @@
  :dependencies
  [[clj-commons/cljss "1.6.4"]
   [reagent "0.9.1"]
-  [re-frame "0.11.0"]]
+  [re-frame "0.11.0"]
+  [metosin/reitit "0.4.2"]]
 
  :http
  {:port 9630}

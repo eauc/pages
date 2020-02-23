@@ -1,8 +1,8 @@
 (ns pages.components.activity-footer
   (:require [cljss.reagent :as css :refer-macros [defstyled]]
             [pages.components.css]
-            [pages.history :refer [nav!]]
-            [reagent.core :as reagent]))
+            [reagent.core :as reagent]
+            [reitit.frontend.easy :as rife]))
 
 (defstyled action :button
   { ;; box
@@ -39,5 +39,7 @@
   [page]
   [footer
    [action
-    {:on-click #(nav! (str "/page/" (inc page)))}
+    {:on-click #(do (println "push-state" page {:page-id (inc page)})
+                    (rife/push-state
+                      :pages.routes/page {:page-id (inc page)}))}
     ">"]])

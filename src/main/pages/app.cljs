@@ -2,6 +2,7 @@
   (:require [pages.components.activity :refer [activity]]
             [pages.components.css :as css]
             [pages.db]
+            [pages.routes :as routes]
             [reagent.core :as reagent]
             [re-frame.core :as rf]))
 
@@ -32,4 +33,5 @@
     [app]
     (js/document.getElementById "app")))
 
+(routes/init!)
 (mount-app!)
