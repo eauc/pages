@@ -1,9 +1,9 @@
 (ns pages.routes
   (:require [pages.db]
             [re-frame.core :as rf]
+            [reitit.coercion.spec :as spec]
             [reitit.frontend :as frontend]
-            [reitit.frontend.easy :as easy]
-            [reitit.coercion.spec :as spec]))
+            [reitit.frontend.easy :as easy]))
 
 (def routes
   [["/" ::main]

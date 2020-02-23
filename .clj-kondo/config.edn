@@ -1,0 +1,3 @@
+{:lint-as {cljss.reagent/defstyled clojure.core/def
+           cljss.core/defkeyframes clojure.core/defn}
+ :linters {:unsorted-required-namespaces {:level :warning}}}

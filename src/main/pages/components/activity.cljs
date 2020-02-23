@@ -1,8 +1,7 @@
 (ns pages.components.activity
-  (:require [cljss.core :refer-macros [defkeyframes]]
-            [cljss.reagent :refer-macros [defstyled]]
-            [pages.components.activity-header :refer [activity-header]]
+  (:require [cljss.reagent :refer-macros [defstyled]]
             [pages.components.activity-footer :refer [activity-footer]]
+            [pages.components.activity-header :refer [activity-header]]
             [pages.components.css :as css]
             [reagent.core :as reagent]))
 
@@ -36,7 +35,7 @@
    :overflow-y "auto"})
 
 (defn activity
-  [page deleted?]
+  [_page _deleted?]
   (let [opened? (reagent/atom nil)
         on-open #(reset! opened? %)
         animation (str (:slide-up @css/keyframes) " 0.4s ease")]

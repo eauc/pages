@@ -11,7 +11,7 @@
 
 (rf/reg-event-db
   ::init
-  (fn [db [_ state]]
+  (fn [_ [_ state]]
     state))
 
 (def load-state

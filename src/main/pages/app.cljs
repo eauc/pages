@@ -3,8 +3,8 @@
             [pages.components.css :as css]
             [pages.db]
             [pages.routes :as routes]
-            [reagent.core :as reagent]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [reagent.core :as reagent]))
 
 (enable-console-print!)
 

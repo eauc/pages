@@ -1,6 +1,5 @@
 (ns pages.components.activity-header-menu
-  (:require [cljss.reagent :as css :refer-macros [defstyled]]
-            [reagent.core :as reagent]))
+  (:require [cljss.reagent :as css :refer-macros [defstyled]]))
 
 (defstyled menu-toggle :button
   { ;; box

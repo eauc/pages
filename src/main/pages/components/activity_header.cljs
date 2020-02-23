@@ -1,7 +1,6 @@
 (ns pages.components.activity-header
   (:require [cljss.reagent :as css :refer-macros [defstyled]]
-            [pages.components.activity-header-menu :refer [activity-header-menu]]
-            [reagent.core :as reagent]))
+            [pages.components.activity-header-menu :refer [activity-header-menu]]))
 
 (defstyled header :div
   {;; grid item layout

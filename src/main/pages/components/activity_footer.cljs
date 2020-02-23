@@ -1,7 +1,6 @@
 (ns pages.components.activity-footer
   (:require [cljss.reagent :as css :refer-macros [defstyled]]
             [pages.components.css]
-            [reagent.core :as reagent]
             [reitit.frontend.easy :as rife]))
 
 (defstyled action :button
